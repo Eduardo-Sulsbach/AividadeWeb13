@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyCollection Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <div class="logo-gem">✦</div>
+          <div>
+            <div class="logo-title">MyCollection</div>
+            <div class="logo-subtitle">Manager</div>
+          </div>
+        </div>
+        <div class="stats-panel">
+          <div class="stat-card">
+            <div class="stat-label">Total de Itens</div>
+            <div class="stat-value" id="stat-total">0</div>
+          </div>
+          <div class="stat-card stat-repeated">
+            <div class="stat-label">Repetidos</div>
+            <div class="stat-value" id="stat-repeated">0</div>
+          </div>
+          <div class="stat-card stat-unique">
+            <div class="stat-label">Únicos</div>
+            <div class="stat-value" id="stat-unique">0</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <section class="form-section">
+        <h2 class="section-title">Adicionar à Coleção</h2>
+        <form id="collection-form" class="form" novalidate>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="item-name">Nome do Item</label>
+              <input type="text" id="item-name" placeholder="Ex: Charizard Holo, Hot Wheels Ferrari..." autocomplete="off" />
+            </div>
+
+            <div class="form-group">
+              <label for="item-image">URL da Imagem <span class="optional">(opcional)</span></label>
+              <input type="url" id="item-image" placeholder="https://exemplo.com/imagem.png" />
+            </div>
+
+            <div class="form-group">
+              <label for="item-rarity">Raridade</label>
+              <select id="item-rarity">
+                <option value="Comum">⚪ Comum</option>
+                <option value="Incomum">🟢 Incomum</option>
+                <option value="Raro">🔵 Raro</option>
+                <option value="Ultra Raro">🟣 Ultra Raro</option>
+                <option value="Lendário">🟡 Lendário</option>
+              </select>
+            </div>
+
+            <div class="form-group form-group--center">
+              <label class="toggle-label">
+                <input type="checkbox" id="item-repeated" />
+                <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                <span class="toggle-text">Repetida / Duplicata</span>
+              </label>
+            </div>
+
+          </div>
+
+          <div id="form-error" class="form-error" style="display:none"></div>
+
+          <button type="submit" class="btn-add">
+            <span class="btn-icon">+</span>
+            Adicionar à Coleção
+          </button>
+        </form>
+      </section>
+
+      <section class="search-section">
+        <div class="search-wrapper">
+          <svg class="search-icon" viewBox="0 0 20 20" fill="none">
+            <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M13 13l3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <input type="search" id="search-input" placeholder="Buscar na coleção em tempo real..." />
+        </div>
+      </section>
+
+      <section class="cards-section">
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">📦</div>
+          <p class="empty-title">Sua coleção está vazia</p>
+          <p class="empty-sub">Adicione o primeiro item usando o formulário acima!</p>
+        </div>
+        <div id="cards-grid" class="cards-grid"></div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      MyCollection Manager &mdash; Feito com JavaScript puro
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>
