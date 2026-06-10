@@ -1,9 +1,9 @@
 // ============================================================
 //  MYCOLLECTION MANAGER — main.js
-//  Todos os 6 requisitos de manipulação de DOM
+//  Filmes & Séries | Todos os 6 requisitos de DOM
 // ============================================================
 
-// Requisito 1 — Capturador de Dados (lendo o DOM)
+// Requisito 1 — Capturador de Dados
 const form = document.getElementById("collection-form");
 const inputName = document.getElementById("item-name");
 const inputImage = document.getElementById("item-image");
@@ -19,7 +19,6 @@ const statTotal = document.getElementById("stat-total");
 const statRepeated = document.getElementById("stat-repeated");
 const statUnique = document.getElementById("stat-unique");
 
-// Estado interno da coleção
 const collection = new Map();
 
 // ============================================================
@@ -40,7 +39,7 @@ function updateStats() {
 }
 
 function animateCounter(el, value) {
-  el.textContent = String(value); // ← textContent (Requisito 5)
+  el.textContent = String(value); // ← textContent
   el.classList.remove("bump");
   void el.offsetWidth;
   el.classList.add("bump");
@@ -51,13 +50,11 @@ function animateCounter(el, value) {
 // REQUISITO 2: CONSTRUTOR DE CARTINHAS — createElement + appendChild
 // ============================================================
 function buildCard(item) {
-  // Cria o card do zero
   const card = document.createElement("div"); // ← createElement
   card.classList.add("card");
   card.dataset.id = item.id;
   card.dataset.name = item.name.toLowerCase();
 
-  // Imagem ou placeholder
   if (item.imageUrl) {
     const img = document.createElement("img"); // ← createElement
     img.classList.add("card-image");
@@ -67,10 +64,9 @@ function buildCard(item) {
     img.onerror = () => img.replaceWith(buildPlaceholder(item.rarity));
     card.appendChild(img); // ← appendChild
   } else {
-    card.appendChild(buildPlaceholder(item.rarity)); // ← appendChild
+    card.appendChild(buildPlaceholder(item.rarity));
   }
 
-  // Corpo
   const body = document.createElement("div"); // ← createElement
   body.classList.add("card-body");
 
@@ -79,31 +75,29 @@ function buildCard(item) {
   name.textContent = item.name; // ← textContent
   body.appendChild(name); // ← appendChild
 
-  // Badges
-  const badgesContainer = document.createElement("div"); // ← createElement
+  const badgesContainer = document.createElement("div");
   badgesContainer.classList.add("card-badges");
 
-  const rarityBadge = document.createElement("span"); // ← createElement
+  const rarityBadge = document.createElement("span");
   rarityBadge.classList.add("card-rarity");
   rarityBadge.dataset.rarity = item.rarity;
   rarityBadge.textContent = item.rarity;
-  badgesContainer.appendChild(rarityBadge); // ← appendChild
+  badgesContainer.appendChild(rarityBadge);
 
   if (item.isRepeated) {
-    const repeatedBadge = document.createElement("span"); // ← createElement
+    const repeatedBadge = document.createElement("span");
     repeatedBadge.classList.add("card-badge-repeated");
-    repeatedBadge.textContent = "Repetida";
-    badgesContainer.appendChild(repeatedBadge); // ← appendChild
+    repeatedBadge.textContent = "Assistido";
+    badgesContainer.appendChild(repeatedBadge);
   }
 
-  body.appendChild(badgesContainer); // ← appendChild
+  body.appendChild(badgesContainer);
 
-  // Botões
-  const actions = document.createElement("div"); // ← createElement
+  const actions = document.createElement("div");
   actions.classList.add("card-actions");
 
   // Botão Favorito (Requisito 4)
-  const btnFav = document.createElement("button"); // ← createElement
+  const btnFav = document.createElement("button");
   btnFav.classList.add("card-btn", "card-btn--fav");
   btnFav.type = "button";
   btnFav.textContent = "★ Favorito";
@@ -112,7 +106,7 @@ function buildCard(item) {
   );
 
   // Botão Troca (Requisito 4)
-  const btnTrade = document.createElement("button"); // ← createElement
+  const btnTrade = document.createElement("button");
   btnTrade.classList.add("card-btn", "card-btn--trade");
   btnTrade.type = "button";
   btnTrade.textContent = "⇄ Troca";
@@ -121,16 +115,16 @@ function buildCard(item) {
   );
 
   // Botão Lixeira (Requisito 3)
-  const btnDelete = document.createElement("button"); // ← createElement
+  const btnDelete = document.createElement("button");
   btnDelete.classList.add("card-btn", "card-btn--delete");
   btnDelete.type = "button";
   btnDelete.textContent = "🗑️";
   btnDelete.addEventListener("click", () => deleteCard(card, item.id));
 
-  actions.appendChild(btnFav); // ← appendChild
-  actions.appendChild(btnTrade); // ← appendChild
-  actions.appendChild(btnDelete); // ← appendChild
-  body.appendChild(actions); // ← appendChild
+  actions.appendChild(btnFav);
+  actions.appendChild(btnTrade);
+  actions.appendChild(btnDelete);
+  body.appendChild(actions);
   card.appendChild(body); // ← appendChild
 
   return card;
@@ -138,15 +132,15 @@ function buildCard(item) {
 
 function buildPlaceholder(rarity) {
   const emojiMap = {
-    Lendário: "👑",
-    "Ultra Raro": "💎",
-    Raro: "🔷",
-    Incomum: "🟢",
-    Comum: "⚪",
+    Filme: "🎬",
+    Série: "📺",
+    Documentário: "🎥",
+    Animação: "✏️",
+    "Mini-série": "🎞️",
   };
-  const el = document.createElement("div"); // ← createElement
+  const el = document.createElement("div");
   el.classList.add("card-image-placeholder");
-  el.textContent = emojiMap[rarity] || "📦";
+  el.textContent = emojiMap[rarity] || "🎬";
   return el;
 }
 
@@ -174,7 +168,7 @@ function deleteCard(card, id) {
 }
 
 // ============================================================
-// REQUISITO 1: CAPTURADOR DE DADOS — lendo o formulário
+// REQUISITO 1: CAPTURADOR DE DADOS
 // ============================================================
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -185,7 +179,7 @@ form.addEventListener("submit", function (event) {
   const repeated = inputRepeated.checked; // lê o DOM
 
   if (!name) {
-    formError.textContent = "Por favor, informe o nome do item.";
+    formError.textContent = "Por favor, informe o nome do título.";
     formError.style.display = "block";
     inputName.focus();
     return;
@@ -199,9 +193,8 @@ form.addEventListener("submit", function (event) {
 
   collection.set(id, item);
 
-  // Requisito 2 — insere o card na grade
   const cardEl = buildCard(item);
-  cardsGrid.appendChild(cardEl); // ← appendChil
+  cardsGrid.appendChild(cardEl); // ← appendChild
 
   updateStats();
   applySearch();
@@ -224,5 +217,4 @@ function applySearch() {
   });
 }
 
-// Inicializa os contadores
 updateStats();
